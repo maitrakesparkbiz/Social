@@ -3,6 +3,6 @@
 @section('content')
 
 <div class="container">
-
+<h1 align="center">Hello {{ Auth::user()->name }} </h1>
 </div>
 @endsection

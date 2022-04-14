@@ -6,6 +6,7 @@ use App\Models\Post as ModelsPost;
 use Illuminate\Http\Client\Request as ClientRequest;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class Post extends Controller
 {
@@ -49,7 +50,10 @@ class Post extends Controller
         $data = Auth::user();
         $id=$data->id;
 
-        $page = ModelsPost::where('user_id', $id)->paginate(2);
+        //$page = ModelsPost::where('user_id', $id)->paginate(2);
+
+        $page=DB::table('posts')->where('user_id', $id)->paginate(2);
+
 
         return view('post.view_post',['data'=>$page]);
     }
