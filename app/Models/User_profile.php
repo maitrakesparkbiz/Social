@@ -21,5 +21,18 @@ class User_profile extends Model
     {
         return $this->hasOne(Post::class);
     }
-
+    public function setAddressAttribute($value)
+    {
+        $this->attributes['address'] = strtoupper($value);
+        //castinh
+        // $this->attributes['address'] = (int)strtoupper($value);
+    }
+    public function getAddressAttribute($value)
+    {
+        return strtolower($value);
+    }
+    public function getFullNameAttribute()
+{
+    return "{$this->address} {$this->profile_photo}";
+}
 }

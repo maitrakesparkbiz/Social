@@ -24,9 +24,7 @@ class StorePostRequest extends FormRequest
     public function rules()
     {
         return [
-            'email' => 'required',
-            'password' => 'required',
+            'password' => 'required|Password::min(8)->mixedCase()->numbers()->symbols()',
         ];
- 
     }
 }

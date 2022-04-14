@@ -8,6 +8,6 @@
 </head>
 <body>
   
-  <a href="http://127.0.0.1:8000/confirm/{{$token}}"></a>
+  <a href="http://127.0.0.1:8000/confirm/{{$token}}">RESET</a>
 </body>
 </html>

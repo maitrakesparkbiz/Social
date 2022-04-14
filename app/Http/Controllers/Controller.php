@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Mail\ResetMail;
 use App\Models\User;
 use App\Models\User_profile;
+use Carbon\Carbon;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Foundation\Bus\DispatchesJobs;
 use Illuminate\Foundation\Validation\ValidatesRequests;
@@ -68,30 +69,46 @@ class Controller extends BaseController
     }
     public function Reset_mail(Request $request)
     {
+      $current = Carbon::now();
+      $current->addMinute(5);
       $time=strtotime('+5 Minutes');
       $token=Hash::make($time);
-      $verified=date("Y-m-d h:i:s", $time);
-
       $email=$request->email;
-      $user = User::where('email',$email)->update(['remember_token' => $token,'email_verified_at' => $verified]);
+      $user = User::where('email',$email)->update(['remember_token' => $token,'email_verified_at' => $current]);
       Mail::to($request->email)->send(new ResetMail($token));
   
      
     }
     public function update_password($id)
     {
+      
       $user=User::where('remember_token',$id)->get();
-      if($user!=null)
+
+      if($user->count()==0)
       {
+        return redirect('/home');
+      }
+
+      $date = date('Y-m-d H:i:s', strtotime($user[0]->email_verified_at));
+      $current = Carbon::now();
+
+      if($date>=$current)
+      {
+
         foreach ($user as $data) {
           return view('auth.passwords.change',['id'=>$data->id]);
           break;
         }
       }
+      else
+      {
+        abort(403);
+      }
       
     }
     public function change_password(Request $request)
     {
+
       $password=Hash::make($request->password);
       $user_profile['password']=$password;
    
@@ -99,6 +116,6 @@ class Controller extends BaseController
       $data = User::updateOrCreate(
           ['id' => $request->id],$user_profile
       );
-      return $password;
+      return redirect('/login');
     }
 }

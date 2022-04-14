@@ -39,9 +39,10 @@ class Post extends Controller
 
     public function view_post(Request $request)
     {
-        $page = ModelsPost::paginate(2);
+        $data = ModelsPost::paginate(2);
+///////////////////////////////////
 
-        return view('post.view_post',['data'=>$page]);
+        return view("post.view_post",compact('data'));
     }
     public function view_all_post()
     {

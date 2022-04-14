@@ -14,21 +14,19 @@
 @section('content')
 
 <center>
-<table style="width: 100%;">
+<table >
   <tr>
-    <th>Name</th>
-    <th>Marks</th>
-    <th>post_icon</th>
-
-
+    <th>Tttle</th>
+    <th>Desciption</th>
+    <th>Post Icon</th>
   </tr>
 
   @foreach ($data as $info)
     <tr>
       
-      <td>{{$info->title}}</td>
-      <td>{{$info->desc}}</td>
-      <td><img src="{{ asset('storage/'.$info->post_icon)}}" width="100" height="100"> </td>
+      <td style="width: 120px;">{{$info->title}}</td>
+      <td style="width: 450px;">{{$info->desc}}</td>
+      <td style="width: 100px;"><img src="{{ asset('storage/'.$info->post_icon)}}" width="100" height="100"> </td>
 
 
 

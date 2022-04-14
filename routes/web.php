@@ -34,6 +34,7 @@ Route::post('/login_user', [LoginController::class, 'login_user'])->name('login_
 Route::get('/login', function () {
     return view('auth.login');
 })->name('login');
+Route::post('register', [App\Http\Controllers\Auth\RegisterController::class, 'register'])->name('register');
 
 Route::group(['middleware'=>'auth'],function(){
 
@@ -56,5 +57,5 @@ Route::get('/confirm/{id}', [App\Http\Controllers\Controller::class, 'update_pas
 
 Route::post('/change', [App\Http\Controllers\Controller::class, 'change_password'])->name('password.confirm');
 
-
+Route::get('language/{locale}', [App\Http\Controllers\LocalizationController::class, 'index']);
 

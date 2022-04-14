@@ -41,6 +41,8 @@
           </td>
           <td>
             <input type="text" name="address" id="address" value="{{$data->address}}">
+            <!-- <input type="text" name="address" id="address" value="{{$data->full_name }}"> -->
+
           </td>
         </tr>
         <tr>
