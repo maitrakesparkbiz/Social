@@ -17,22 +17,19 @@
       <h1>Profile Update</h1>
       <br>
       <br>
-      @foreach ($user_data as $data)
-        <img src="{{ asset('storage/'.$data->profile_photo)}}" width="100" height="100">
+       
+        @if (isset($user_data))
+        <img src="{{asset('storage/'.$user_data->profile_photo)}}" width="100" height="100">
+        @endif
       <table>
         <tr>
           <td>
-            <input type="hidden" name="user_id" value="{{$id}}" id="user_id">
+            <input type="hidden" name="user_id" value="{{isset($id) ? $id:''}}" id="user_id">
             <label>Gender</label>
           </td>
           <td> 
-            Male <input type="radio" name="gender" value="male" id="gender" @if ($data->gender=="male")
-              checked
-            @endif>
-            Female<input type="radio" name="gender" value="female" id="gender"
-            @if ($data->gender=="female")
-              checked
-            @endif>
+            Male <input type="radio" name="gender" value="male" id="gender" {{isset($user_data) ? ($user_data->gender == 'male' ? 'checked' : '') : ''}} >
+            Female<input type="radio" name="gender" value="female" id="gender" {{isset($user_data) ? ($user_data->gender == 'female' ? 'checked' : '') : ''}}>
           </td>
         </tr>
         <tr>
@@ -40,8 +37,8 @@
             <label>Adddress</label>
           </td>
           <td>
-            <input type="text" name="address" id="address" value="{{$data->address}}">
-            <!-- <input type="text" name="address" id="address" value="{{$data->full_name }}"> -->
+            <input type="text" name="address" id="address" value="{{isset($user_data) ? $user_data->address : ''}}">
+
 
           </td>
         </tr>
@@ -50,7 +47,7 @@
             <label>Profile Photo</label>
           </td>
           <td>
-            <input type="file" name="profile_photo" id="profile_photo" value="{{$data->profile_photo}}">
+            <input type="file" name="profile_photo" id="profile_photo" value="{{isset($user_data->profile_photo) ? $user_data->profile_photo:''}}">
           </td>
         </tr>
         <tr>
@@ -58,7 +55,7 @@
             <label>Date Of Birth</label>
           </td>
           <td>
-            <input type="date" name="birth_date" id="birth_date" value="{{$data->birth_date}}">
+            <input type="date" name="birth_date" id="birth_date" value="{{isset($user_data) ? $user_data->birth_date : ''}}">
           </td>
         </tr>
         <tr>
@@ -67,7 +64,7 @@
           </td>
         </tr>
       </table>
-      @endforeach
+
     </center>
 
   </form>

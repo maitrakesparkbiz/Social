@@ -17,4 +17,9 @@ class Post extends Model
         'post_icon',
         
     ];
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
 }

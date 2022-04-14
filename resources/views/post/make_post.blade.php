@@ -9,7 +9,7 @@
       <tr>
         <td>
           <label> Title</label>
-          <input type="hidden" name="user_id" value="{{$id}}">
+       
         </td>
         <td>
           <input type="text" name="title" id="title">

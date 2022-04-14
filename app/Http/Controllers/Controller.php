@@ -25,40 +25,39 @@ class Controller extends BaseController
     public function profile_form()
     {
         $data = Auth::user();
-        $id=$data->id;
-        $check = Auth::user()->user_profile;
-         $user_data=$data->user_profile;
-        
 
-       if($user_data->count()==1)
-      {
+         $user_data=$data->user_profile;
+ 
+
         
-        return view('profile_form',['id'=> $id,'user_data'=>$user_data]);
-      }
-      else
-      {
-        return view('update_form',['id'=> $id]);
-      }
+        return view('profile_form',['id'=> Auth::id(),'user_data'=>$user_data]);
+      
+   
     }
     public function profile_register(Request $request)
     {
         $data = Auth::user();
-      $user_data=$data->user_profile;
-  
-      foreach ($user_data as $data) {
+       
+       if($data->user_profile=='')
+       {
         Storage::delete('public/'.$data->profile_photo);
-        break;
-        }
+       }
+     
+   
 
+        $user_profile=[
+          'user_id'=>Auth::id(),
+          'gender'=>$request->gender,
+          'address'=>$request->address,
+          'birth_date'=>$request->birth_date,
+      ];
+      
 
-        $user_profile['user_id']=$request->user_id;
-        $user_profile['gender']=$request->gender;
-        $user_profile['address']=$request->address;
         $name = time().'_'.$request->file('profile_photo')->getClientOriginalName();
         $request->file('profile_photo')->storeAs('public/profile_photo',$name);
         $path = 'profile_photo/'.$name;
         $user_profile['profile_photo']=$path;
-        $user_profile['birth_date']=$request->birth_date;
+      
 
 
         $data = User_profile::updateOrCreate(

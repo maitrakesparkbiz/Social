@@ -31,6 +31,11 @@ class User_profile extends Model
     {
         return strtolower($value);
     }
+        public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
+
     public function getFullNameAttribute()
 {
     return "{$this->address} {$this->profile_photo}";

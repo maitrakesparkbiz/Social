@@ -41,6 +41,8 @@ Route::group(['middleware'=>'auth'],function(){
     Route::get('view/profile', [App\Http\Controllers\Controller::class, 'profile_form'])->name('profile');
     Route::post('insert/profile', [App\Http\Controllers\Controller::class, 'profile_register'])->name('register_pofile');
     Route::get('update/profile/{id}', [App\Http\Controllers\Controller::class, 'profile_Update']);
+
+    
     Route::get('post', [App\Http\Controllers\Post::class, 'post_form'])->name('post');
 
     Route::post('post', [App\Http\Controllers\Post::class, 'insert_post'])->name('insert_post');

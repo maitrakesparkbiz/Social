@@ -12,9 +12,9 @@ class Post extends Controller
 {
     public function post_form()
     {
-        $data = Auth::user();
-        $id=$data->id;
-        return view('post.make_post',['id'=>$id]);
+     
+    
+        return view('post.make_post');
     }
     public function insert_post(Request $request)
     {
@@ -24,15 +24,22 @@ class Post extends Controller
             'desc' => 'required|max:255',
             'post_icon' => 'required',
         ]);
+        $user_profile=[
+            'user_id'=>Auth::id(),
+            'title'=>$request->title,
+            'desc'=>$request->desc
+        ];
+        
+       
+        if($request->hasFile('post_icon'))
+        {
+            $name = time().'_'.$request->file('post_icon')->getClientOriginalName();
+            $request->file('post_icon')->storeAs('public/post_icon',$name);
+            $path = 'post_icon/'.$name;
+            $user_profile['post_icon']=$path;
+        }
 
-         $user_profile['user_id']=$request->user_id;
-        $user_profile['title']=$request->title;
-        $user_profile['desc']=$request->desc;
-        $name = time().'_'.$request->file('post_icon')->getClientOriginalName();
-        $request->file('post_icon')->storeAs('public/post_icon',$name);
-        $path = 'post_icon/'.$name;
-        $user_profile['post_icon']=$path;
-        $data = ModelsPost::Create(
+        ModelsPost::create(
             $user_profile
         );
         return redirect()->back()->with('success','profile updated');
@@ -41,7 +48,6 @@ class Post extends Controller
     public function view_post(Request $request)
     {
         $data = ModelsPost::paginate(2);
-///////////////////////////////////
 
         return view("post.view_post",compact('data'));
     }
