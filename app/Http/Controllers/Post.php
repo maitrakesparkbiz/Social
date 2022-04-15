@@ -16,7 +16,7 @@ class Post extends Controller
     
         return view('post.make_post');
     }
-    public function insert_post(Request $request)
+    public function insert_post(Request $request,$id)
     {
 
         $validated = $request->validate([
@@ -33,14 +33,12 @@ class Post extends Controller
        
         if($request->hasFile('post_icon'))
         {
-            $name = time().'_'.$request->file('post_icon')->getClientOriginalName();
-            $request->file('post_icon')->storeAs('public/post_icon',$name);
-            $path = 'post_icon/'.$name;
+            $path=file_upload($request->file('post_icon'),'post_icon');
             $user_profile['post_icon']=$path;
         }
 
-        ModelsPost::create(
-            $user_profile
+        ModelsPost::updateOrCreate(
+           ['id' => $id],$user_profile
         );
         return redirect()->back()->with('success','profile updated');
     }

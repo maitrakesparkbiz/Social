@@ -25,15 +25,10 @@ class Controller extends BaseController
     public function profile_form()
     {
         $data = Auth::user();
-
-         $user_data=$data->user_profile;
- 
-
-        
+        $user_data=$data->user_profile;
         return view('profile_form',['id'=> Auth::id(),'user_data'=>$user_data]);
-      
-   
     }
+
     public function profile_register(Request $request)
     {
         $data = Auth::user();
@@ -43,21 +38,18 @@ class Controller extends BaseController
         Storage::delete('public/'.$data->profile_photo);
        }
      
-   
-
-        $user_profile=[
+      $user_profile=[
           'user_id'=>Auth::id(),
           'gender'=>$request->gender,
           'address'=>$request->address,
           'birth_date'=>$request->birth_date,
       ];
       
-
-        $name = time().'_'.$request->file('profile_photo')->getClientOriginalName();
-        $request->file('profile_photo')->storeAs('public/profile_photo',$name);
-        $path = 'profile_photo/'.$name;
+      if($request->hasFile('profile_photo'))
+      {
+        $path=file_upload($request->file('profile_photo'),'profile_photo');
         $user_profile['profile_photo']=$path;
-      
+      }
 
 
         $data = User_profile::updateOrCreate(
