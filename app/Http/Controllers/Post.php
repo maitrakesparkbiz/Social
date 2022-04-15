@@ -7,6 +7,8 @@ use Illuminate\Http\Client\Request as ClientRequest;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Storage;
+use LDAP\Result;
 
 class Post extends Controller
 {
@@ -16,9 +18,9 @@ class Post extends Controller
     
         return view('post.make_post');
     }
-    public function insert_post(Request $request,$id)
+    public function insert_post(Request $request)
     {
-
+        $id=0;
         $validated = $request->validate([
             'title' => 'required|max:255',
             'desc' => 'required|max:255',
@@ -37,6 +39,14 @@ class Post extends Controller
             $user_profile['post_icon']=$path;
         }
 
+        if($request->id==null)
+        {
+            $id=0;
+        }
+        else
+        {
+            $id=$request->id;
+        }
         ModelsPost::updateOrCreate(
            ['id' => $id],$user_profile
         );
@@ -49,16 +59,33 @@ class Post extends Controller
 
         return view("post.view_post",compact('data'));
     }
+    public function view_user_post($id)
+    {
+        $data = ModelsPost::find($id);
+
+        return view("post.make_post",compact('data'));
+    }
+    public function del_user_post($id)
+    {
+       
+        $data=ModelsPost::find($id)->post_icon;
+        if($data!='')
+        {
+         Storage::delete('public/'.$data);
+        }
+        ModelsPost::find($id)->delete();
+        return redirect('view/post');
+    }
     public function view_all_post()
     {
         $data = Auth::user();
         $id=$data->id;
 
-        //$page = ModelsPost::where('user_id', $id)->paginate(2);
+        $page = ModelsPost::where('user_id', $id)->paginate(2);
 
-        $page=DB::table('posts')->where('user_id', $id)->paginate(2);
+        //$page=DB::table('posts')->where('user_id', $id)->paginate(2);
 
 
-        return view('post.view_post',['data'=>$page]);
+        return view('post.view_post',['data'=>$page,'id'=>$id]);
     }
 }

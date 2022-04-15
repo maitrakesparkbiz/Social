@@ -19,6 +19,9 @@
     <th>Tttle</th>
     <th>Desciption</th>
     <th>Post Icon</th>
+    @if (isset($id))
+    <th colspan="2">action</th>
+    @endif
   </tr>
 
   @foreach ($data as $info)
@@ -27,7 +30,12 @@
       <td style="width: 120px;">{{$info->title}}</td>
       <td style="width: 450px;">{{$info->desc}}</td>
       <td style="width: 100px;"><img src="{{ asset('storage/'.$info->post_icon)}}" width="100" height="100"> </td>
+      @if (isset($id))
+      <td><a href="/view/user/post/{{$info->id}}">Edit</a></td>
+      <td> <a href="/del/post/{{$info->id}}">Delete</a></td>      
+      @endif
 
+    
 
 
     </tr>

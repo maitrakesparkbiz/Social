@@ -5,14 +5,20 @@
   <center>
     <form action="{{ route('insert_post') }}" method="post" enctype="multipart/form-data">
     @csrf
+    @if (isset($data))
+        <img src="{{asset('storage/'.$data->post_icon)}}" width="100" height="100">
+        @endif
+        <br>
+        <br>
     <table>
       <tr>
         <td>
           <label> Title</label>
-       
+
         </td>
         <td>
-          <input type="text" name="title" id="title">
+          <input type="hidden" name="id" value="{{isset($data->id) ? $data->id:''}}">
+          <input type="text" name="title" id="title" value="{{isset($data->title) ? $data->title:''}}">
         </td>
       </tr>
       <tr>
@@ -20,7 +26,7 @@
           <label>Desciption</label>
         </td>
         <td>
-          <textarea name="desc" id="desc" cols="30" rows="10"></textarea>
+          <textarea name="desc" id="desc" cols="30" rows="10" >{{isset($data->desc) ? $data->desc:''}}</textarea>
         </td>
       </tr>
       <tr>
