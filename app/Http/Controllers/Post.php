@@ -82,7 +82,7 @@ class Post extends Controller
         $id=$data->id;
 
         $page = ModelsPost::where('user_id', $id)->paginate(2);
-
+        
         //$page=DB::table('posts')->where('user_id', $id)->paginate(2);
 
 
