@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Post;
 use App\Models\User;
+use App\Models\User_profile;
 use Illuminate\Http\Request;
 
 class HomeController extends Controller
@@ -25,9 +26,11 @@ class HomeController extends Controller
      */
     public function index()
     {
-        
-        $post=Post::orderBy('created_at', 'desc')->get();
-        return view('home',compact('post'));
+         $post = Post::with('user')->orderBy('created_at', 'desc')->get();
+        $id=$post[0]->user_id;
+         $user_profile=User_profile::where('user_id',$id)->get();
+        $photo= $user_profile[0]->profile_photo;
+        return view('home',compact('post','photo'));
 
     }
 }

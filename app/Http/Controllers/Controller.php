@@ -37,9 +37,6 @@ class Controller extends BaseController
       if($request->profile_photo) 
       {
         Storage::delete('public/'.$data);
-      }
-      else
-      {
         $cnt=1;
       }
        
