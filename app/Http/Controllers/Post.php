@@ -68,11 +68,11 @@ class Post extends Controller
     public function del_user_post($id)
     {
        
-        $data=ModelsPost::find($id)->post_icon;
+/*         $data=ModelsPost::find($id)->post_icon;
         if($data!='')
         {
          Storage::delete('public/'.$data);
-        }
+        } */
         ModelsPost::find($id)->delete();
         return redirect('view/post');
     }

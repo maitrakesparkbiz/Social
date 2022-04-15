@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Post;
 use App\Models\User;
 use Illuminate\Http\Request;
 
@@ -24,7 +25,9 @@ class HomeController extends Controller
      */
     public function index()
     {
+        
+        $post=Post::orderBy('created_at', 'desc')->get();
+        return view('home',compact('post'));
 
-        return view('home');
     }
 }

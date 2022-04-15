@@ -6,9 +6,9 @@
     <form action="{{ route('insert_post') }}" method="post" enctype="multipart/form-data">
     @csrf
     @if (isset($data))
-        <img src="{{asset('storage/'.$data->post_icon)}}" width="100" height="100">
+        <img src="{{asset('storage/'.$data->post_icon)}}" width="225" height="200">
         @endif
-        <br>
+        
         <br>
     <table>
       <tr>

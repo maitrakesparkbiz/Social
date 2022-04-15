@@ -31,13 +31,13 @@ class Controller extends BaseController
 
     public function profile_register(Request $request)
     {
-        $data = Auth::user();
+      
+        $data = User::find(Auth::id())->user_profile->profile_photo;
+        
+      if($data) 
+      
+        Storage::delete('public/'.$data);
        
-       if($data->user_profile=='')
-       {
-        Storage::delete('public/'.$data->profile_photo);
-       }
-     
       $user_profile=[
           'user_id'=>Auth::id(),
           'gender'=>$request->gender,
@@ -99,11 +99,8 @@ class Controller extends BaseController
     }
     public function change_password(Request $request)
     {
-
       $password=Hash::make($request->password);
       $user_profile['password']=$password;
-   
-
       $data = User::updateOrCreate(
           ['id' => $request->id],$user_profile
       );

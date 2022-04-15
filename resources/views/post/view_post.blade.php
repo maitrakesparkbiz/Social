@@ -20,7 +20,7 @@
     <th>Desciption</th>
     <th>Post Icon</th>
     @if (isset($id))
-    <th colspan="2">action</th>
+    <th colspan="3" style="text-align: center;">action</th>
     @endif
   </tr>
 
@@ -31,22 +31,17 @@
       <td style="width: 450px;">{{$info->desc}}</td>
       <td style="width: 100px;"><img src="{{ asset('storage/'.$info->post_icon)}}" width="100" height="100"> </td>
       @if (isset($id))
-      <td><a href="/view/user/post/{{$info->id}}">Edit</a></td>
-      <td> <a href="/del/post/{{$info->id}}">Delete</a></td>      
+      <td>&nbsp&nbsp&nbsp&nbsp <a href="/view/user/post/{{$info->id}}"><button style="background-color: blue;color:azure">Edit</button></a> &nbsp&nbsp</td>
+      <td> <a href="/del/post/{{$info->id}}"><button style="background-color: red;color:azure">Delete</button></a>&nbsp&nbsp</td>      
+      <td><a href="{{ asset('storage/'.$info->post_icon)}}" download><img src="{{ asset('image/download-symbol-svgrepo-com.svg') }}" width="30px" height="30px"/></td>  
       @endif
-
-    
-
-
     </tr>
 
   @endforeach
 </table>
 </center>
 
-<center>
 {{$data->links("pagination::bootstrap-4")}}
-</center>
 
 
 

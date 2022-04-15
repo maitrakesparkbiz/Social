@@ -16,10 +16,9 @@
     <center>
       <h1>Profile Update</h1>
       <br>
-      <br>
-       
+      
         @if (isset($user_data))
-        <img src="{{asset('storage/'.$user_data->profile_photo)}}" width="100" height="100">
+        <img src="{{asset('storage/'.$user_data->profile_photo)}}" width="250" height="250" style="border-radius: 50%;">
         @endif
       <table>
         <tr>
