@@ -31,12 +31,17 @@ class Controller extends BaseController
 
     public function profile_register(Request $request)
     {
-      
-        $data = User::find(Auth::id())->user_profile->profile_photo;
+      $cnt=0;
+      $data = User::find(Auth::id())->user_profile->profile_photo;
         
-      if($data) 
-      
+      if($request->profile_photo) 
+      {
         Storage::delete('public/'.$data);
+      }
+      else
+      {
+        $cnt=1;
+      }
        
       $user_profile=[
           'user_id'=>Auth::id(),
