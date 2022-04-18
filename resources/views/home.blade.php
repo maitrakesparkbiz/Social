@@ -8,24 +8,39 @@
 
 
  
-<table border="2px" style="width: 100%;">
+<table id="table_id" class="display">
+  <thead>
+    <tr>
+      <td>user</td>
+      <td>Profile Photo</td>
+      <td>Title</td>
+      <td>Desciption</td>
+      <td>Icon</td>
+    </tr>
+  </thead>
+  <tbody>
 @foreach ($post as $data)
   <tr>
-    <td>
+    <td>{{$data->user->name}}</td>
+    <td> <img src="{{asset('storage/'.$photo)}}" width="50" height="50" style="border-radius: 50%;"></td>
+    <td>{{$data->title}}</td>
 
-    </td>
-    <td>{{$data->user->name}} <img src="{{asset('storage/'.$photo)}}" width="50" height="50" style="border-radius: 50%;"></td>
-    <td colspan="2">{{$data->title}}</td>
-    <td colspan="2"></td>
-  </tr>
-  <tr>
 
-    <td colspan="4">{{$data->desc}}</td>
+
+    <td>{{$data->desc}}</td>
     <td>    <img src="{{asset('storage/'.$data->post_icon)}}" width="50" height="50"></td>
     
   </tr>
   
   @endforeach
+  </tbody>
 </table>
 
+@section('custom-js')
+<script>
+$(document).ready( function () {
+    $('#table_id').DataTable();
+} );
+</script> 
+@endsection
 @endsection
