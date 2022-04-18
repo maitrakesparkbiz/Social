@@ -22,4 +22,8 @@ class Post extends Model
     {
         return $this->belongsTo(User::class);
     }
+    public function profile_photo()
+    {
+        return $this->hasOneThrough(User_profile::class, user::class);
+    }
 }

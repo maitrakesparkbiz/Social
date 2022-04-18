@@ -32,7 +32,7 @@ class Controller extends BaseController
     public function profile_register(Request $request)
     {
       $cnt=0;
-      $data = User::find(Auth::id())->user_profile->profile_photo;
+      $data = User::find(Auth::id())->exists();
         
       if($request->profile_photo) 
       {

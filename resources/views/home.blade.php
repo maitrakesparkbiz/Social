@@ -14,7 +14,7 @@
     <td>
 
     </td>
-    <td>{{$data->user->name}} <img src="{{asset('storage/'.$photo)}}" width="50" height="50"></td>
+    <td>{{$data->user->name}} <img src="{{asset('storage/'.$photo)}}" width="50" height="50" style="border-radius: 50%;"></td>
     <td colspan="2">{{$data->title}}</td>
     <td colspan="2"></td>
   </tr>
