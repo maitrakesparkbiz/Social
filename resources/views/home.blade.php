@@ -36,11 +36,5 @@
   </tbody>
 </table>
 
-@section('custom-js')
-<script>
-$(document).ready( function () {
-    $('#table_id').DataTable();
-} );
-</script> 
-@endsection
+
 @endsection

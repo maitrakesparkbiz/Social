@@ -104,7 +104,7 @@
             @yield('content')
         </main>
     </div>
-    @yield('custom-js')
+    @yield('post-js')
     <script>
 $(document).ready( function () {
     $('#table_id').DataTable();

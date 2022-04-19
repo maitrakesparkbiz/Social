@@ -30,7 +30,7 @@
         <td style="width: 450px;">{{$info->desc}}</td>
         <td style="width: 100px;"><img src="{{ asset('storage/'.$info->post_icon)}}" width="100" height="100"> </td>
         @if (isset($id))
-        <td>&nbsp&nbsp&nbsp&nbsp <a href="/view/user/post/{{$info->id}}"><button style="background-color: blue;color:azure">Edit</button> <a href="/del/post/{{$info->id}}"><button style="background-color: red;color:azure">Delete</button></a>&nbsp&nbsp<<a href="{{ asset('storage/'.$info->post_icon)}}" download><img src="{{ asset('image/download-symbol-svgrepo-com.svg') }}" width="30px" height="30px"/></td>  
+        <td>&nbsp&nbsp&nbsp&nbsp <a href="/view/user/post/{{$info->id}}"><button style="background-color: blue;color:azure">Edit</button> <a href="/del/post/{{$info->id}}"><button style="background-color: red;color:azure">Delete</button></a>&nbsp&nbsp<a href="{{ asset('storage/'.$info->post_icon)}}" download><img src="{{ asset('image/download-symbol-svgrepo-com.svg') }}" width="30px" height="30px"/></td>  
         @endif
       </tr>
 

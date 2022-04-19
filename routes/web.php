@@ -51,8 +51,8 @@ Route::group(['middleware'=>'auth'],function(){
     Route::get('view/post', [App\Http\Controllers\Post::class, 'view_all_post'])->name('view_my_post');
     Route::get('view/user/post/{id}', [App\Http\Controllers\Post::class, 'view_user_post']);
     Route::get('del/post/{id}', [App\Http\Controllers\Post::class, 'del_user_post']);
-    Route::get('view_all/ajax', [App\Http\Controllers\Post::class, 'view_post_ajx'])->name('view_post_ajx'); 
-
+    
+    Route::get('home_ajax', [App\Http\Controllers\DataTableAjaxCRUDController::class, 'index'])->name('home_ajax');
 });
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
